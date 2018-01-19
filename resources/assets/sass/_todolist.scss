@@ -1,0 +1,70 @@
+.todolist{
+  /*// Stacked Paper Effect
+  // Source: https://css-tricks.com/snippets/css/stack-of-paper/*/
+  box-shadow:
+          /* The top layer shadow */
+          0 1px 1px rgba(0,0,0,0.15),
+            /* The second layer */
+          0 10px 0 -5px #eee,
+            /* The second layer shadow */
+          0 10px 1px -4px rgba(0,0,0,0.15),
+            /* The third layer */
+          0 20px 0 -10px #eee,
+            /* The third layer shadow */
+          0 20px 1px -9px rgba(0,0,0,0.15);
+  .todo-input{
+    padding: 14px;
+    border-width: 4px;
+    border-color: #ECF0F1;
+    &.is-valid{
+      border-color: #17a2b8;
+    }
+    &.form-control:focus {
+      color: #495057;
+      border-color: rgba(#2C3E50 , .5);
+      outline: 0;
+      border-width: 4px;
+      box-shadow: none;
+    }
+  }
+
+}
+
+.todos-task-wrapper {
+  max-height: 60vh;
+  overflow-y: scroll;
+}
+
+
+
+.todo-info{
+  padding: 5px 20px;
+  color: #777777;
+  .todo-action-btn {
+    background: transparent;
+    color: #777777;
+    padding: 0px 8px;
+    font-size: 14px;
+    border-color: rgba(#777777, 0.2);
+    border-radius: 3px;
+    border-width: 1px;
+    cursor: pointer;
+
+    margin: 0 3px;
+    &:focus , &.active{ outline: none; border-color: $primary; }
+  }
+}
+
+.single-todo{
+  &.done{
+    text-decoration: line-through;
+    color: #777777;
+  }
+  &:hover{
+    background-color: #EEEEEE;
+  }
+}
+
+.task-list-single:hover{
+  background-color: #EEE;
+}
