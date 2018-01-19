@@ -4,7 +4,7 @@
             <div class="col-md-8 mr-auto ml-auto">
                 <div class="app-header text-center">
                     <h1 class="app-title">
-                        King Todo
+                        King Todo <span class="app-version">v1.0.0</span>
                     </h1>
                     <p class="tagline text-muted">
                         A todolist application with laravel and vuejs

@@ -1706,18 +1706,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -1728,7 +1716,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             showAdd: true,
             showUpdate: false,
             updateIndex: 1,
-            newSortedTodos: []
+            newSortedTodos: [],
+            showEdit: false
         };
     },
 
@@ -1802,6 +1791,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     swal("Poof! Your imaginary file has been deleted!", {
                         icon: "success"
                     });
+                } else {
+                    swal("Cancelled", "Your todo is safe :)", "error");
                 }
             });
         },
@@ -44891,85 +44882,112 @@ var render = function() {
                 key: index,
                 staticClass: "list-group-item single-todo",
                 class: { done: todo.done },
-                attrs: { id: "todo-id-" + index }
+                attrs: { id: "todo-id-" + index },
+                on: {
+                  dblclick: function($event) {
+                    _vm.showEdit = true
+                  }
+                }
               },
               [
-                _c(
-                  "span",
-                  {
-                    staticClass: "float-left drag-handle",
-                    staticStyle: {
-                      "padding-right": "15px",
-                      color: "#1b1e21",
-                      cursor: "pointer"
-                    }
-                  },
-                  [_c("i", { staticClass: "fa fa-arrows" })]
-                ),
-                _vm._v("\n            " + _vm._s(todo.task) + "\n            "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "btn-group float-right todo-action-btn-group"
-                  },
-                  [
-                    !todo.done
-                      ? _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-success btn-sm",
-                            on: {
-                              click: function($event) {
-                                _vm.makeDone(todo, index)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fa fa-check" })]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    todo.done
-                      ? _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-warning btn-sm",
-                            on: {
-                              click: function($event) {
-                                _vm.makeUnDone(todo, index)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fa fa-undo" })]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c(
-                      "button",
+                !_vm.showEdit
+                  ? _c(
+                      "span",
                       {
-                        staticClass: "btn btn-info btn-sm",
-                        on: {
-                          click: function($event) {
-                            _vm.updateTodo(todo, index)
-                          }
+                        staticClass: "float-left drag-handle",
+                        staticStyle: {
+                          "padding-right": "15px",
+                          color: "#1b1e21",
+                          cursor: "pointer"
                         }
                       },
-                      [_c("i", { staticClass: "fa fa-pencil" })]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger btn-sm",
-                        on: {
-                          click: function($event) {
-                            _vm.deleteTodo(todo, index)
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fa fa-trash-o" })]
+                      [_c("i", { staticClass: "fa fa-arrows" })]
                     )
-                  ]
-                )
+                  : _vm._e(),
+                _vm._v(" "),
+                !_vm.showEdit
+                  ? _c("span", { domProps: { textContent: _vm._s(todo.task) } })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.showEdit
+                  ? _c("input", {
+                      staticClass: "edit-todo",
+                      attrs: { type: "text", autofocus: "" },
+                      domProps: { value: todo.task },
+                      on: {
+                        blur: function($event) {
+                          _vm.showEdit = false
+                        }
+                      }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                !_vm.showEdit
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "btn-group float-right todo-action-btn-group"
+                      },
+                      [
+                        !todo.done
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-success btn-sm",
+                                on: {
+                                  click: function($event) {
+                                    _vm.makeDone(todo, index)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-check" })]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        todo.done
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-warning btn-sm",
+                                on: {
+                                  click: function($event) {
+                                    _vm.makeUnDone(todo, index)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-undo" })]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-info btn-sm",
+                            on: {
+                              click: function($event) {
+                                _vm.updateTodo(todo, index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-pencil" })]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger btn-sm",
+                            on: {
+                              click: function($event) {
+                                _vm.deleteTodo(todo, index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-trash-o" })]
+                        )
+                      ]
+                    )
+                  : _vm._e()
               ]
             )
           })
@@ -45016,7 +45034,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "app-header text-center" }, [
       _c("h1", { staticClass: "app-title" }, [
-        _vm._v("\n                    King Todo\n                ")
+        _vm._v("\n                    King Todo "),
+        _c("span", { staticClass: "app-version" }, [_vm._v("v1.0.0")])
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "tagline text-muted" }, [

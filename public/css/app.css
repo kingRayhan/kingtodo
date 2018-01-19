@@ -13238,8 +13238,10 @@ a.text-dark:hover {
   background-color: #EEEEEE;
 }
 
-.task-list-single:hover {
-  background-color: #EEE;
+.edit-todo {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #DDD;
 }
 
 body {
@@ -13250,5 +13252,13 @@ body {
   font-family: 'Supermercado One', cursive;
   font-size: 65px;
   color: #64696b;
+}
+
+.app-version {
+  background-color: #64696B;
+  color: #ECF0F1;
+  font-size: 23px;
+  padding: 1px 7px;
+  border-radius: 5px;
 }
 

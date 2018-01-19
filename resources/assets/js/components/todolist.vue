@@ -20,12 +20,13 @@
         <div class="todos-task-wrapper">
             <draggable  :list="todosTasks" :options="{animation:200, handle:'.drag-handle'}" @change="updateOrder">
             <li class="list-group-item single-todo" :class="{'done' : todo.done}" :id="'todo-id-' + index"
-                v-for="(todo,index) in todosTasks" :key="index">
-                <span class="float-left drag-handle" style="padding-right: 15px;color: #1b1e21;cursor:pointer">
+                v-for="(todo,index) in todosTasks" :key="index" @dblclick="showEdit = true">
+                <span class="float-left drag-handle" style="padding-right: 15px;color: #1b1e21;cursor:pointer" v-if="!showEdit">
                     <i class="fa fa-arrows"></i>
                 </span>
-                {{ todo.task }}
-                <div class="btn-group float-right todo-action-btn-group">
+                <span v-text="todo.task" v-if="!showEdit"></span>
+                <input type="text" :value="todo.task" class="edit-todo" v-if="showEdit" @blur="showEdit = false" autofocus>
+                <div v-if="!showEdit" class="btn-group float-right todo-action-btn-group">
                     <button class="btn btn-success btn-sm" v-if="!todo.done" @click="makeDone(todo , index)"><i
                             class="fa fa-check"></i></button>
                     <button class="btn btn-warning btn-sm" v-if="todo.done" @click="makeUnDone(todo , index)"><i
@@ -37,19 +38,6 @@
             </li>
             </draggable>
         </div>
-        <!--<modal name="update-task" height="160">-->
-            <!--<div style="padding: 15px;">-->
-                <!--&lt;!&ndash; @inputfield task &ndash;&gt;-->
-                <!--<div class="form-group">-->
-                    <!--<label for="task">Edit Task</label>-->
-                    <!--<input type="text" class="form-control" id="task" v-model="todos[updateIndex].task" placeholder="Edit Task">-->
-                <!--</div>-->
-                <!--&lt;!&ndash; @inputfield Form Submit Button &ndash;&gt;-->
-                <!--<div class="form-group">-->
-                    <!--<button type="submit" class="btn btn-primary">save</button>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</modal>-->
     </ul>
 </template>
 <script>
@@ -62,7 +50,8 @@
                 showAdd: true,
                 showUpdate: false,
                 updateIndex: 1,
-                newSortedTodos: []
+                newSortedTodos: [],
+                showEdit: false
             }
         },
         computed: {
@@ -131,6 +120,8 @@
                             swal("Poof! Your imaginary file has been deleted!", {
                                 icon: "success",
                             });
+                        }else{
+                            swal("Cancelled", "Your todo is safe :)", "error");
                         }
                     });
             },
