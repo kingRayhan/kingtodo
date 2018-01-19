@@ -7,4 +7,8 @@
 
 @section('page-title' , 'King TODO :: Home')
 
+@section('page-content')
 
+    <h1>Please wait...</h1>
+
+@stop

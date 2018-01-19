@@ -10,6 +10,8 @@ $(function() {
 });
 
 Vue.component('app-todo-list', require('./components/todolist.vue'));
+import draggable from 'vuedraggable';
+Vue.component('draggable', draggable);
 
 import  App from './components/app.vue';
 

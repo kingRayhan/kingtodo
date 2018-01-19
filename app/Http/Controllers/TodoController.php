@@ -35,6 +35,9 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
         Todo::create([
             'task' => $request->task,
             'done' => 0
@@ -77,6 +80,19 @@ class TodoController extends Controller
 //        $todo->done = 1;
 //        $todo->save();
         return $request;
+    }
+
+    public function UpdateOrder(Request $request)
+    {
+        Todo::truncate();
+        $reversed_arry = array_reverse($request->all());
+        foreach ($reversed_arry as $todo)
+        {
+            Todo::create([
+                'task' => $todo['task'],
+                'done' => $todo['done']
+            ]);
+        }
     }
 
     public function makeDone($id)

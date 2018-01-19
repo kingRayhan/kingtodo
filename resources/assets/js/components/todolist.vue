@@ -18,8 +18,12 @@
         </li>
 
         <div class="todos-task-wrapper">
+            <draggable  :list="todosTasks" :options="{animation:200, handle:'.drag-handle'}" @change="updateOrder">
             <li class="list-group-item single-todo" :class="{'done' : todo.done}" :id="'todo-id-' + index"
-                v-for="(todo,index) in todosTasks">
+                v-for="(todo,index) in todosTasks" :key="index">
+                <span class="float-left drag-handle" style="padding-right: 15px;color: #1b1e21;cursor:pointer">
+                    <i class="fa fa-arrows"></i>
+                </span>
                 {{ todo.task }}
                 <div class="btn-group float-right todo-action-btn-group">
                     <button class="btn btn-success btn-sm" v-if="!todo.done" @click="makeDone(todo , index)"><i
@@ -31,20 +35,21 @@
                     </button>
                 </div>
             </li>
+            </draggable>
         </div>
-        <modal name="update-task" height="160">
-            <div style="padding: 15px;">
-                <!-- @inputfield task -->
-                <div class="form-group">
-                    <label for="task">Edit Task</label>
-                    <input type="text" class="form-control" id="task" v-model="todos[updateIndex].task" placeholder="Edit Task">
-                </div>
-                <!-- @inputfield Form Submit Button -->
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">save</button>
-                </div>
-            </div>
-        </modal>
+        <!--<modal name="update-task" height="160">-->
+            <!--<div style="padding: 15px;">-->
+                <!--&lt;!&ndash; @inputfield task &ndash;&gt;-->
+                <!--<div class="form-group">-->
+                    <!--<label for="task">Edit Task</label>-->
+                    <!--<input type="text" class="form-control" id="task" v-model="todos[updateIndex].task" placeholder="Edit Task">-->
+                <!--</div>-->
+                <!--&lt;!&ndash; @inputfield Form Submit Button &ndash;&gt;-->
+                <!--<div class="form-group">-->
+                    <!--<button type="submit" class="btn btn-primary">save</button>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</modal>-->
     </ul>
 </template>
 <script>
@@ -56,7 +61,8 @@
                 newTodo: '',
                 showAdd: true,
                 showUpdate: false,
-                updateIndex: 1
+                updateIndex: 1,
+                newSortedTodos: []
             }
         },
         computed: {
@@ -110,7 +116,7 @@
                 axios.delete(`/todos/${todo.id}`)
                     .then(response => {
                         this.todosTmp.splice(index, 1);
-                        this.todos.splice(index, 1);
+//                        this.todos.splice(index, 1);
                     })
                     .catch(err => {
                         console.log(err);
@@ -136,7 +142,11 @@
             },
             showAllTask()
             {
-                this.todosTmp = this.todos;
+                axios.get('todos')
+                    .then(response => {
+                        this.todos =  response.data;
+                        this.todosTmp =  response.data;
+                    });
             },
             showActiveTask()
             {
@@ -145,6 +155,13 @@
             showDoneTask()
             {
                 this.todosTmp = this.todos.filter( x => x.done == 1 );
+            },
+            updateOrder()
+            {
+                axios.post('/todos/updateorder' , this.todosTasks)
+                    .then(r =>{
+                        console.log(r);
+                    });
             }
         }
     }
