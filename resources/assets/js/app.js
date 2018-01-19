@@ -18,4 +18,5 @@ import  App from './components/app.vue';
 const app = new Vue({
     el: '#app',
     render: h => h(App)
-})
+});
+Vue.config.devtools = false;

@@ -2,9 +2,11 @@ window._ = require('lodash');
 import Popper from 'popper.js/dist/umd/popper.js';
 try {
     window.$ = window.jQuery = require('jquery');
+    require('sweetalert');
     window.Popper = Popper;
     require('bootstrap');
     require('jquery.nicescroll');
+
 } catch (e) {}
 
 /**

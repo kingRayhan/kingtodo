@@ -93,7 +93,6 @@
         },
         methods: {
             saveTodo() {
-
                 axios.post('todos', {task: this.newTodo})
                     .then(response => {
                         this.todos.unshift({task: this.newTodo, done: 0});
@@ -113,13 +112,26 @@
                     });
             },
             deleteTodo(todo , index) {
-                axios.delete(`/todos/${todo.id}`)
-                    .then(response => {
-                        this.todosTmp.splice(index, 1);
-//                        this.todos.splice(index, 1);
-                    })
-                    .catch(err => {
-                        console.log(err);
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this!!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            axios.delete(`/todos/${todo.id}`)
+                                .then(response => {
+                                    this.todosTmp.splice(index, 1);
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                });
+                            swal("Poof! Your imaginary file has been deleted!", {
+                                icon: "success",
+                            });
+                        }
                     });
             },
             updateTodo(todo , index)
