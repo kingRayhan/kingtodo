@@ -57,8 +57,10 @@
 
 .single-todo{
   &.done{
-    text-decoration: line-through;
-    color: #777777;
+    .todo-text{
+      text-decoration: line-through;
+      color: #777777;
+    }
   }
   &:hover{
     background-color: #EEEEEE;
@@ -67,8 +69,14 @@
 
 
 // Edit Todo
-
-.edit-todo{
+.editing-todo{
+  .todo-action-btn-group,
+  .todo-text,
+  .drag-handle{ display: none;}
+  .edit-todo-input{ display: block; }
+}
+.edit-todo-input{
+  display: none;
   width: 100%;
   padding: 10px;
   border: 1px solid #DDD;

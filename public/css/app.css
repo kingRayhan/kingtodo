@@ -13229,7 +13229,7 @@ a.text-dark:hover {
   border-color: #007bff;
 }
 
-.single-todo.done {
+.single-todo.done .todo-text {
   text-decoration: line-through;
   color: #777777;
 }
@@ -13238,7 +13238,18 @@ a.text-dark:hover {
   background-color: #EEEEEE;
 }
 
-.edit-todo {
+.editing-todo .todo-action-btn-group,
+.editing-todo .todo-text,
+.editing-todo .drag-handle {
+  display: none;
+}
+
+.editing-todo .edit-todo-input {
+  display: block;
+}
+
+.edit-todo-input {
+  display: none;
   width: 100%;
   padding: 10px;
   border: 1px solid #DDD;

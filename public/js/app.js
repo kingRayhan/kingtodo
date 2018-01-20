@@ -1706,6 +1706,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -1717,7 +1727,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             showUpdate: false,
             updateIndex: 1,
             newSortedTodos: [],
-            showEdit: false
+            showEdit: false,
+            editingTodo: null
         };
     },
 
@@ -1756,6 +1767,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post('todos', { task: this.newTodo }).then(function (response) {
                 _this2.todos.unshift({ task: _this2.newTodo, done: 0 });
                 _this2.newTodo = '';
+            }).catch(function (error) {
+                swal({
+                    title: error.response.data.errors.task[0],
+                    icon: 'error'
+                });
             });
         },
         makeDone: function makeDone(todo, index) {
@@ -1796,21 +1812,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        updateTodo: function updateTodo(todo, index) {
-            //                this.showAdd = false;
-            //                this.showUpdate = true;
-            //                this.updateIndex = index;
-            //                axios.put(`/todos/${todo.id}` , this.todos[index])
-            //                    .then(response => {
-            //                        console.log(response);
-            //                        this.todosTmp.splice(index, 1);
-            //                        this.todos.splice(index, 1);
-            //                    })
-            //                    .catch(err => {
-            //                        console.log(err);
-            //                    });
-            this.updateIndex = index;
-            this.$modal.show('update-task');
+        editTodo: function editTodo(todo) {
+            this.editingTodo = todo;
+        },
+        doneEdit: function doneEdit(todo) {
+            if (!this.editingTodo) return;
+            this.editingTodo = null;
+
+            // Delete , if user make it empty
+            //                if(!todo.title)
+            //                {
+            //                    alert('empty');
+            //                }
+
+            // Update This Todo
+            axios.put('todos/' + todo.id, todo).then(function (response) {
+                console.log(response);
+            });
         },
         showAllTask: function showAllTask() {
             var _this6 = this;
@@ -1831,9 +1849,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         updateOrder: function updateOrder() {
-            axios.post('/todos/updateorder', this.todosTasks).then(function (r) {
-                console.log(r);
-            });
+            axios.post('/todos/updateorder', this.todosTasks).then(function (r) {});
         }
     }
 });
@@ -44881,13 +44897,11 @@ var render = function() {
               {
                 key: index,
                 staticClass: "list-group-item single-todo",
-                class: { done: todo.done },
-                attrs: { id: "todo-id-" + index },
-                on: {
-                  dblclick: function($event) {
-                    _vm.showEdit = true
-                  }
-                }
+                class: {
+                  done: todo.done,
+                  "editing-todo": _vm.editingTodo == todo
+                },
+                attrs: { id: "todo-id-" + index }
               },
               [
                 !_vm.showEdit
@@ -44905,89 +44919,124 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                !_vm.showEdit
-                  ? _c("span", { domProps: { textContent: _vm._s(todo.task) } })
-                  : _vm._e(),
+                _c("span", {
+                  staticClass: "todo-text",
+                  domProps: { textContent: _vm._s(todo.task) },
+                  on: {
+                    dblclick: function($event) {
+                      _vm.editTodo(todo)
+                    }
+                  }
+                }),
                 _vm._v(" "),
-                _vm.showEdit
-                  ? _c("input", {
-                      staticClass: "edit-todo",
-                      attrs: { type: "text", autofocus: "" },
-                      domProps: { value: todo.task },
-                      on: {
-                        blur: function($event) {
-                          _vm.showEdit = false
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: todo.task,
+                      expression: "todo.task"
+                    }
+                  ],
+                  staticClass: "edit-todo-input",
+                  attrs: { type: "text", autofocus: "" },
+                  domProps: { value: todo.task },
+                  on: {
+                    keyup: [
+                      function($event) {
+                        if (
+                          !("button" in $event) &&
+                          _vm._k($event.keyCode, "enter", 13, $event.key)
+                        ) {
+                          return null
                         }
-                      }
-                    })
-                  : _vm._e(),
-                _vm._v(" "),
-                !_vm.showEdit
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "btn-group float-right todo-action-btn-group"
+                        _vm.doneEdit(todo)
                       },
-                      [
-                        !todo.done
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-success btn-sm",
-                                on: {
-                                  click: function($event) {
-                                    _vm.makeDone(todo, index)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-check" })]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        todo.done
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-warning btn-sm",
-                                on: {
-                                  click: function($event) {
-                                    _vm.makeUnDone(todo, index)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-undo" })]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c(
+                      function($event) {
+                        if (
+                          !("button" in $event) &&
+                          _vm._k($event.keyCode, "esc", 27, $event.key)
+                        ) {
+                          return null
+                        }
+                        _vm.doneEdit(todo)
+                      }
+                    ],
+                    blur: function($event) {
+                      _vm.doneEdit(todo)
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(todo, "task", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "btn-group float-right todo-action-btn-group"
+                  },
+                  [
+                    !todo.done
+                      ? _c(
                           "button",
                           {
-                            staticClass: "btn btn-info btn-sm",
+                            staticClass: "btn btn-success btn-sm",
                             on: {
                               click: function($event) {
-                                _vm.updateTodo(todo, index)
+                                _vm.makeDone(todo, index)
                               }
                             }
                           },
-                          [_c("i", { staticClass: "fa fa-pencil" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger btn-sm",
-                            on: {
-                              click: function($event) {
-                                _vm.deleteTodo(todo, index)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fa fa-trash-o" })]
+                          [_c("i", { staticClass: "fa fa-check" })]
                         )
-                      ]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    todo.done
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-warning btn-sm",
+                            on: {
+                              click: function($event) {
+                                _vm.makeUnDone(todo, index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-undo" })]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-info btn-sm",
+                        on: {
+                          click: function($event) {
+                            _vm.editTodo(todo)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fa fa-pencil" })]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger btn-sm",
+                        on: {
+                          click: function($event) {
+                            _vm.deleteTodo(todo, index)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fa fa-trash-o" })]
                     )
-                  : _vm._e()
+                  ]
+                )
               ]
             )
           })
@@ -56374,13 +56423,13 @@ Vue.component('draggable', __WEBPACK_IMPORTED_MODULE_1_vuedraggable___default.a)
 
 
 
-var app = new Vue({
+new Vue({
     el: '#app',
     render: function render(h) {
         return h(__WEBPACK_IMPORTED_MODULE_2__components_app_vue___default.a);
     }
 });
-Vue.config.devtools = false;
+// Vue.config.devtools = false;
 
 /***/ }),
 

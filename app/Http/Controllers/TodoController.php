@@ -35,8 +35,9 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-
-
+        $request->validate([
+            'task' => 'required|min:30'
+        ]);
 
         Todo::create([
             'task' => $request->task,
@@ -76,10 +77,10 @@ class TodoController extends Controller
      */
     public function update(Request $request, $id)
     {
-//        $todo = Todo::find($id);
-//        $todo->done = 1;
-//        $todo->save();
-        return $request;
+        $todo = Todo::find($id);
+        $todo->task = $request->task;
+        $todo->done = $request->done;
+        $todo->save();
     }
 
     public function UpdateOrder(Request $request)
