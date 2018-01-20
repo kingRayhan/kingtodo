@@ -5,9 +5,9 @@
 
 KingTodo is a simple simple application created with Laravel and vujs that allows you to add todos, edit todos, delete todos and also mark todo as completed and dragging and sorting.
 
-**Application Version:** 1.0.0
-
-**Laravel Version:** 2.5.7
+> **Application Version:** 1.0.0 <br>
+**Laravel Version:** 5.5 <br/>
+**Vuejs Version:** 2.5.7
 
 
 ### Installation
@@ -77,15 +77,14 @@ https://github.com/kingRayhan/kingtodo/issues/new
 
 
 ## Credits:
-+ axios v0.17
-+ bootstrap v4.0.0-beta.3
-+ cross-env v5.1
-+ font-awesome v4.7.0
-+ jquery v3.2
-+ jquery.nicescroll v3.7.6
-+ laravel-mix v1.0
-+ lodash v4.17.4
-+ popper.js v1.12.9
-+ sweetalert v2.1.0
-+ vue v2.5.7
-+ vuedraggable v2.16.0
++ [axios v0.17](https://github.com/axios/axios)
++ [bootstrap v4.0.0-beta.3](https://getbootstrap.com/)
++ [font-awesome v4.7.0](http://fontawesome.io/icons/)
++ [jquery v3.2](https://jquery.com/)
++ [jquery.nicescroll v3.7.6](https://github.com/inuyaksa/jquery.nicescroll)
++ [laravel-mix v1.0](https://github.com/JeffreyWay/laravel-mix)
++ [lodash v4.17.4](https://lodash.com)
++ [popper.js v1.12.9](https://popper.js.org)
++ [sweetalert v2.1.0](https://sweetalert.js.org)
++ [vue v2.5.7](https://vuejs.org)
++ [vuedraggable v2.16.0](https://github.com/SortableJS/Vue.Draggable)
