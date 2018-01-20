@@ -45083,7 +45083,10 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "app-header text-center" }, [
       _c("h1", { staticClass: "app-title" }, [
-        _vm._v("\n                    King Todo "),
+        _c("span", { staticClass: "text-info" }, [_vm._v("King")]),
+        _vm._v(" "),
+        _c("span", { staticClass: "text-danger" }, [_vm._v("Todo")]),
+        _vm._v(" "),
         _c("span", { staticClass: "app-version" }, [_vm._v("v1.0.0")])
       ]),
       _vm._v(" "),

@@ -81,7 +81,7 @@ https://github.com/kingRayhan/kingtodo/issues/new
 + bootstrap v4.0.0-beta.3
 + cross-env v5.1
 + font-awesome v4.7.0
-+ jquery v3.2,
++ jquery v3.2
 + jquery.nicescroll v3.7.6
 + laravel-mix v1.0
 + lodash v4.17.4
