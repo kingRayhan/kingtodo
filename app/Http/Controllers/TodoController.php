@@ -36,7 +36,7 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'task' => 'required|min:30'
+            'task' => 'required|min:10'
         ]);
 
         Todo::create([
