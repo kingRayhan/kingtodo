@@ -119,4 +119,9 @@ class TodoController extends Controller
     {
         Todo::destroy($id);
     }
+
+    public function ClearCompleted()
+    {
+        Todo::where('done' , 1)->delete();
+    }
 }

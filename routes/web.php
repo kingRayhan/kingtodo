@@ -20,3 +20,4 @@ Route::resource('/todos' , 'TodoController');
 Route::put('/todos/makedone/{id}' , 'TodoController@makeDone');
 Route::put('/todos/makeundone/{id}' , 'TodoController@makeUnDone');
 Route::post('todos/updateorder' , 'TodoController@UpdateOrder');
+Route::post('todos/clearcompleted' , 'TodoController@ClearCompleted');
