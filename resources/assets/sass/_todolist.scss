@@ -1,3 +1,7 @@
+button:focus {
+    outline: none;
+}
+
 .todolist{
   /*// Stacked Paper Effect
   // Source: https://css-tricks.com/snippets/css/stack-of-paper/*/
@@ -12,21 +16,39 @@
           0 20px 0 -10px #eee,
             /* The third layer shadow */
           0 20px 1px -9px rgba(0,0,0,0.15);
-  .todo-input{
-    padding: 14px;
-    border-width: 4px;
-    border-color: #ECF0F1;
-    &.is-valid{
-      border-color: #17a2b8;
-    }
-    &.form-control:focus {
-      color: #495057;
-      border-color: rgba(#2C3E50 , .5);
-      outline: 0;
-      border-width: 4px;
-      box-shadow: none;
-    }
-  }
+
+    position:  relative;
+    background-color: #fff;
+    padding-bottom:  15px;
+    margin-bottom: 45px;
+   &:before {
+      box-shadow: 0px 30px 100px rgba(0,0,0,0.25);
+      content: "";
+      position:  absolute;
+      left:  0;
+      top: 0;
+      width:  100%;
+      height:  100%;
+      z-index:  -1;
+   }
+   .todo-input-wrap {
+      border: none;
+      padding: 0;
+      .todo-input{
+        padding: 20px;
+        border: none;
+        box-shadow: 0 0 10px rgba(0,0,0,0.15);
+        font-size: 35px;
+        padding-left: 40px;
+        color: #ddd;
+        &.form-control:focus {
+          color: #495057;
+          box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+          border: none;
+        }
+      }
+   }
+
 
 }
 
@@ -37,9 +59,12 @@
 
 
 
-.todo-info{
-  padding: 5px 20px;
-  color: #777777;
+.list-group-item.todo-info.strong{
+  border-bottom: 1px solid #ddd!important;
+  z-index: 1;
+  &:hover {
+    border: 1px solid #ddd;
+  }
   .todo-action-btn {
     background: transparent;
     color: #777777;
@@ -49,27 +74,136 @@
     border-radius: 3px;
     border-width: 1px;
     cursor: pointer;
-
     margin: 0 3px;
-    &:focus , &.active{ outline: none; border-color: $primary; }
+    &:hover,
+    &:focus , 
+    &.active{ 
+      background-color: #17A2B8;
+      border-color: #17A2B8;
+      outline: none;
+      color: #fff;
+    }
   }
 }
 
 .single-todo{
+    border-radius: 0px;
+    padding-top:  20px;
+    padding-bottom:  20px;
+    border: 0;
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.25);
+    margin-bottom: 0;
+    font-size:  24px;
+    color: #6e6969;
+    position: relative;
+
+  .king_delete_btn {
+      opacity: 0;
+      float:  left;
+      height: 25px;
+      width: 25px;
+      border-radius:  50px;
+      cursor: pointer;
+      border: none;
+      margin-top: 10px;
+      background: transparent;
+      &:before,
+      &:after {
+          content:"";
+          position:  absolute;
+          width: 1.5px;
+          height: 60%;
+          background-color: #dc3545;
+          border-radius:  6px;
+          top: 6px;
+      }
+      &:before {
+          transform:  rotate(45deg);
+      }
+
+      &:after {
+          transform: rotate(135deg);
+      }
+  }
+  .shorter {
+      float:  right;
+      padding: 0 8px 0 10px;
+      cursor: move;
+      margin-right: -15px;
+  }
+  .king_checkbox_wrapper {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      .king_checkbox_incomplete,
+      .king_checkbox_complete {
+          width: 25px;
+          height: 25px;
+          box-shadow: 0 0 3px rgba(0,0,0,0.35);
+          border-radius: 50px;
+          background-color: #fff;
+          border: none;
+          margin-right: 20px;
+          margin-top: 6px;
+          cursor: pointer;
+      }
+      .king_checkbox_complete {
+            position: relative;
+            &:before,
+            &:after {
+              background-color: #17a2b8;
+              transform: rotate(30deg);
+              position: absolute;
+              content:"";
+            }
+
+            &:before {
+              border-radius: 3px 0 0 0;
+              position: absolute;
+              bottom: 6px;
+              height: 2px;
+              width: 8px;
+              left: 4px;
+            }
+
+            &:after {
+                border-radius: 17px 3px 0 0;
+                height: 16px;
+                width: 2px;
+                right: 9px;
+                bottom: 3px;
+          }
+      }
+   }
+
+   .trash_button_wrapper {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+   }
+
+   .todo-text {
+    padding: 0 45px;
+    display: block;
+   }
   &.done{
     .todo-text{
       text-decoration: line-through;
-      color: #777777;
+      color: #c4c7c8;
     }
   }
   &:hover{
-    background-color: #EEEEEE;
+    background-color: #f6f6f6;
+    .king_delete_btn {
+      opacity: 1;
+    }
   }
 }
 
 
 // Edit Todo
 .editing-todo{
+  .king_checkbox_wrapper,
   .todo-action-btn-group,
   .todo-text,
   .drag-handle{ display: none;}
