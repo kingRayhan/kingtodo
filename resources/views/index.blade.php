@@ -9,6 +9,9 @@
 
 @section('page-content')
 
-    <h1><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></h1>
+        <!-- After loading data from api, this preloader will be replaces by todolist markup -->
+        <h1 class="preloader">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+        </h1>
 
 @stop
