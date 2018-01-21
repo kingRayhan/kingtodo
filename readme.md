@@ -26,7 +26,7 @@ Install composer dependencies
 composer install
 ```
 
-Now, install dependencies
+Now, install npm dependencies
 ```php
 npm install
 ``` 
