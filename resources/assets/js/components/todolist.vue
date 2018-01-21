@@ -1,10 +1,11 @@
 <template>
+    <div>
     <ul class="list-group todolist">
         <li class="list-group-item todo-input-wrap">
             <input type="text" placeholder="Type and hit enter" class="form-control todo-input" v-model="newTodo"
                    @keyup.enter="saveTodo">
         </li>
-        <li class="list-group-item todo-info strong">
+        <li class="list-group-item todo-info strong" v-if="todos.length">
             <span class="task-info-text">
                 {{ taskLeftCount }} task Left , {{ taskDoneCount }} task done
             </span>
@@ -15,7 +16,6 @@
                 <button class="todo-action-btn" @click="clearCompleted">Clear Completed</button>
             </div>
         </li>
-
         <div class="todos-task-wrapper">
             <draggable :list="todosTasks" :options="{animation:200, handle:'.shorter'}" @change="updateOrder">
                 <li class="list-group-item single-todo"
@@ -46,16 +46,14 @@
             </draggable>
         </div>
     </ul>
+    <footerCreedit></footerCreedit>
+    </div>
 </template>
-<style scoped="">
-    .drag-handle{
-        padding-right: 15px;color: #1b1e21;cursor:pointer
-    }
-</style>
 <script>
+    import footerCreedit from './footer-credit.vue';
     export default {
-        filters:{
-
+        components:{
+            footerCreedit
         },
         data() {
             return {
@@ -103,6 +101,7 @@
             axios.get('todos')
                 .then(response => {
                     this.todos = response.data;
+                    this.todosTmp = response.data;
                 });
         },
         methods: {
@@ -170,6 +169,34 @@
             doneEdit(todo){
                 if(!this.editingTodo) return;
                 this.editingTodo = null;
+                if(!todo.task.length) 
+                {
+                    swal({
+                        title: "Do you want to delete this?",
+                        text: "Once deleted, you will not be able to recover this!!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            axios.delete(`/todos/${todo.id}`)
+                                .then(response => {
+                                    this.todos.splice(this.todos.indexOf(todo), 1);
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                });
+                            swal("Poof! Your imaginary file has been deleted!", {
+                                icon: "success",
+                            });
+                        } else {
+                             var i = this.todos.indexOf(todo);
+                             this.todos[i] = this.todosTmp[i];
+                            swal("Cancelled", "Your todo is safe :)", "error");
+                        }
+                    });
+                }
                 axios.put(`todos/${todo.id}` , todo)
                     .then(response => {
                         console.log(response);

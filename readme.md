@@ -1,11 +1,11 @@
 <p align="center">
-    <img src="kingtodo.png">
+    <img src="https://media.giphy.com/media/3oFzm9Y8971j1LKVuU/giphy.gif">
 </p>
 
 
 KingTodo is a simple simple application created with Laravel and vujs that allows you to add todos, edit todos, delete todos and also mark todo as completed and dragging and sorting.
 
-> **Application Version:** 1.0.0 <br>
+> **Application Version:** 1.1.0 <br>
 **Laravel Version:** 5.5 <br/>
 **Vuejs Version:** 2.5.7
 
