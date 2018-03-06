@@ -6,8 +6,8 @@
 
 KingTodo is a simple simple application created with Laravel and vujs that allows you to add todos, edit todos, delete todos and also mark todo as completed and dragging and sorting.
 
-> **Application Version:** 1.1.0 
-> **Laravel Version:** 5.5 
+> **Application Version:** 1.1.0 <br>
+> **Laravel Version:** 5.5 <br>
 > **Vuejs Version:** 2.5.7
 
 
