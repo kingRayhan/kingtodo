@@ -4,7 +4,7 @@
  <p>Design credit <a href="https://github.com/themeshef">@ThemeShef<a/></p>
 </div>
 
-KingTodo is a simple simple application created with Laravel and vujs that allows you to add todos, edit todos, delete todos and also mark todo as completed and dragging and sorting.
+**[kingtodo][kingtodourl]** is a simple simple application created with Laravel and vujs that allows you to add todos, edit todos, delete todos and also mark todo as completed and dragging and sorting.
 
 > **Application Version:** 1.1.0 <br>
 > **Laravel Version:** 5.5 <br>
@@ -27,7 +27,7 @@ cd kingtodo
 <br/>
 
 ### 2. Install dependencies
-There are two type of dependencies here, php **composer** and **npm**
+There are two type of dependencies here, php **[composer][composer]** and **[npm][npm]**
 
 Install **composer** dependencies
 
@@ -119,3 +119,5 @@ https://github.com/kingRayhan/kingtodo/issues/new
 
 [kingtodourl]: https://github.com/kingRayhan/kingtodo "King Todo Repository"
 [issue]: https://github.com/kingRayhan/kingtodo/issues/new "Create new issue"
+[npm]: https://www.npmjs.com
+[composer]: https://getcomposer.org
