@@ -13,6 +13,15 @@
 
 # Installation
 
+### Table of contents
+* [Grab the project files](#1-grab-the-project-files)
+* [Install dependencies](#2-install-dependencies)
+* [Configure Database](#3-configure-database)
+* [Import Demo data (optional)](#4-import-demo-data-optional)
+* [Run server](#5-run-server)
+* [Issue Tracker](#have-any-question)
+* [Credits](#credits)
+
 ### 1. Grab the project files
 
 Clone this repository first-
